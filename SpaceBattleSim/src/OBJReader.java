@@ -15,7 +15,6 @@ public class OBJReader{
 		File file = new File(path.toAbsolutePath().toString().replace(fileName, "\\src\\objects\\" + fileName));
 		Scanner scanner = new Scanner(file);
 		scanner.useDelimiter("\\\\");
-		System.out.println("something");
 		System.out.println(scanner.next());
 	}
 	
