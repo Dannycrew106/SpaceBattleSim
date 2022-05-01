@@ -14,14 +14,6 @@ public class Quaternion{
 		zk = zValue;
 	}
 	
-	public void add(Quaternion secondQuaternion) {
-		Quaternion newQuaternion = add(this, secondQuaternion);
-		s = newQuaternion.s;
-		xi = newQuaternion.xi;
-		yj = newQuaternion.yj;
-		zk = newQuaternion.zk;
-	}
-	
 	public void multiply(Quaternion secondQuaternion) {
 		Quaternion newQuaternion = multiply(this, secondQuaternion);
 		s = newQuaternion.s;
@@ -44,13 +36,6 @@ public class Quaternion{
 	}
 	
 	// Static Methods
-	public static Quaternion add(Quaternion firstQuaternion, Quaternion secondQuaternion) {
-		// This just adds each factor of each quaternion, simple right?
-		return new Quaternion(firstQuaternion.s + secondQuaternion.s
-				, firstQuaternion.xi + secondQuaternion.xi
-				, firstQuaternion.yj + secondQuaternion.yj
-				, firstQuaternion.zk + secondQuaternion.zk);
-	}
 	public static Quaternion multiply(Quaternion firstQuaternion, Quaternion secondQuaternion) {
 		// This looks like a mess, and it absolutely is....
 		// Its returning a new quaternion that is the product of the first and second quaternion using the Hamilton Product
