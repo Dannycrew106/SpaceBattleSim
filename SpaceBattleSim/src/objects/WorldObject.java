@@ -4,20 +4,15 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class WorldObject{
-	//public static String filePath = "C:\\Users\\904238007\\git\\SpaceBattleSim\\SpaceBattleSim\\src\\objects\\";
-	//Home File Path: C:\\Users\\Danny\\git\\SpaceBattleSim\\SpaceBattleSim\\SpaceBattleSim\\src\\objects\\
-	//School File Path: C:\\Users\\904238007\\git\\SpaceBattleSim\\SpaceBattleSim\\src\\objects\\
+	public Vertex[] vertices;
 	
-	public static void readLine(String fileName, int line) throws FileNotFoundException{
+	public WorldObject(String fileName) throws FileNotFoundException {
 		File file = new File(System.getProperty("user.dir") + "\\src\\objects\\" + fileName);
 		Scanner scanner = new Scanner(file);
 		scanner.useDelimiter("\\\\");
-		System.out.println(scanner.next());
+		String fileString = scanner.next();
+		System.out.println(fileString);
+		scanner.close();
 	}
 	
-	
-	
-	public static void main(String[] args) throws FileNotFoundException {
-		readLine("Box v1.obj", 0);
-	}
 }

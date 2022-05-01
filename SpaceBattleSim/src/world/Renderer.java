@@ -2,7 +2,6 @@ package world;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class Renderer extends JFrame{
 	
 	private static final long serialVersionUID = 5110994671381635202L;
