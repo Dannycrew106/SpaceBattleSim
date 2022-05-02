@@ -9,8 +9,11 @@ public class Vertex {
 	public double y;
 	public double z;
 	
-	public Vertex(double x, double y, double z, WorldObject parent) {
+	public Vertex(double x, double y, double z) {
 		qVertex = new Quaternion(Math.sqrt((x*x)+(y*y)+(z*z)), Math.atan(y/x), Math.atan(z/(Math.sqrt((x*x)+y*y))), 0);
+		this.x = x;
+		this.y = y;
+		this.z = z;
 	}
 	
 }

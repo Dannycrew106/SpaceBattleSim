@@ -4,15 +4,25 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class WorldObject{
-	public Vertex[] vertices;
+	public double x = 0;
+	public double y = 0;
+	public double z = 0;
+	public double scale = 1;
+	
+	public boolean visible = false;
+	
+	// The direction the object is facing. This will be used to rotate each vertice around
+	public Quaternion objectFacing = new Quaternion(0, 1, 0, 0);
+	// The direction the object is moving. The scalar quantity is in m/s.
+	public Quaternion movementDirection = new Quaternion(0, 1, 0, 0);
+	
+	public OBJFile model;
 	
 	public WorldObject(String fileName) throws FileNotFoundException {
-		File file = new File(System.getProperty("user.dir") + "\\src\\objects\\" + fileName);
-		Scanner scanner = new Scanner(file);
-		scanner.useDelimiter("\\\\");
-		String fileString = scanner.next();
-		System.out.println(fileString);
-		scanner.close();
+		model = new OBJFile(fileName);
 	}
 	
+	public void setVisible(boolean visible) {
+		
+	}
 }

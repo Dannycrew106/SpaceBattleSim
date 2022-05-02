@@ -9,6 +9,7 @@ public class Renderer extends JFrame{
 	private JPanel panel = new JPanel();
 	
 	public void createScreen(String name, int width, int height) {
+		Font serif = new Font(Font.SERIF, Font.PLAIN, 10);
 		frame = new JFrame(name);
 		panel.setBackground(Color.BLACK);
 		frame.add(panel);
