@@ -10,7 +10,7 @@ public class SpaceBattleSim {
 	
 	public static void main(String[] args) {
 		try {
-			WorldObject somefin = new WorldObject("Box v1.obj");
+			WorldObject somefin = new WorldObject("actual.obj");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

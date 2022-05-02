@@ -10,6 +10,7 @@ public class OBJFile {
 	
 	public ArrayList<Vertex> vertices = new ArrayList<>();
 	public ArrayList<Triangle> triangles = new ArrayList<>();
+	public MTLFile mtlLibrary;
 	
 	public OBJFile(String fileName) throws FileNotFoundException {
 		File file = new File(System.getProperty("user.dir") + "\\src\\objects\\" + fileName);
@@ -38,9 +39,9 @@ public class OBJFile {
 				triangles.add(trianglesIndex, new Triangle(vertices.get(vertex1Index-1), vertices.get(vertex2Index-1), vertices.get(vertex3Index-1), Color.white));
 				trianglesIndex++;
 			} else if (lines[i].startsWith("mtllib")) {
-				
+				mtlLibrary = new MTLFile(lines[i].split(" ")[1]);
 			} else if (lines[i].startsWith("usemtl")) {
-				
+				mtlLibrary.findMaterial(lines[i].split(" ")[1]);
 			}
 		}
 		

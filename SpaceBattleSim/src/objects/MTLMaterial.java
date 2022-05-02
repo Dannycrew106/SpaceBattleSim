@@ -1,16 +1,15 @@
 package objects;
 
 public class MTLMaterial {
-	double[] ambientColor;
-	double[] diffuseColor;
-	double[] specularColor;
+	String name;
+	double[] ambientColor = {0.2, 0.2, 0.2};
+	double[] diffuseColor = {0.8, 0.8, 0.8};
+	double[] specularColor = {1.0, 1.0, 1.0};
+	double Ns = 1;
 	
 	byte illum = 0;
 	
-	public MTLMaterial(double[] ka, double[] kd, double[] ks, byte illum) {
-		ambientColor = ka;
-		diffuseColor = kd;
-		specularColor = ks;
-		this.illum = illum;
+	public MTLMaterial(String name) {
+		this.name = name;
 	}
 }
