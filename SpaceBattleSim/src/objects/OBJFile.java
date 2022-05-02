@@ -1,5 +1,6 @@
 package objects;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class OBJFile {
 		
 		int vertexIndex = 0;
 		int trianglesIndex = 0;
+		
 		for (int i = 0; i < lines.length; i++) {
 			if (lines[i].startsWith("#") || lines[i].startsWith("vn") || lines[i].startsWith("vt") || lines[i].startsWith("g")) {
 				continue;
@@ -33,9 +35,11 @@ public class OBJFile {
 				int vertex1Index = (int)parseDouble((line[1].split("/"))[0]);
 				int vertex2Index = (int)parseDouble((line[2].split("/"))[0]);
 				int vertex3Index = (int)parseDouble((line[3].split("/"))[0]);
-				triangles.add(trianglesIndex, new Triangle(vertices.get(vertex1Index-1), vertices.get(vertex2Index-1), vertices.get(vertex3Index-1)));
+				triangles.add(trianglesIndex, new Triangle(vertices.get(vertex1Index-1), vertices.get(vertex2Index-1), vertices.get(vertex3Index-1), Color.white));
 				trianglesIndex++;
 			} else if (lines[i].startsWith("mtllib")) {
+				
+			} else if (lines[i].startsWith("usemtl")) {
 				
 			}
 		}
