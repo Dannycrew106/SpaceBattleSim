@@ -12,7 +12,6 @@ public class SpaceBattleSim {
 		try {
 			WorldObject somefin = new WorldObject("Box v1.obj");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		screen.createScreen("Space Battle Simulator", 1360, 768);

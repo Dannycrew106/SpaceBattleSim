@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class OBJFile {
 	
-	public ArrayList<Vertex> vertices;
-	public ArrayList<Triangle> triangles;
+	public ArrayList<Vertex> vertices = new ArrayList<>();
+	public ArrayList<Triangle> triangles = new ArrayList<>();
 	
 	public OBJFile(String fileName) throws FileNotFoundException {
 		File file = new File(System.getProperty("user.dir") + "\\src\\objects\\" + fileName);
@@ -20,23 +20,33 @@ public class OBJFile {
 		String[] lines = fileString.split("\r\n|\r|\n");
 		
 		int vertexIndex = 0;
+		int trianglesIndex = 0;
 		for (int i = 0; i < lines.length; i++) {
 			if (lines[i].startsWith("#") || lines[i].startsWith("vn") || lines[i].startsWith("vt") || lines[i].startsWith("g")) {
 				continue;
 			} else if (lines[i].startsWith("v")) {
 				String[] line = lines[i].split(" ");
-				vertices.add(vertexIndex, new Vertex(parseDouble(line[0]), parseDouble(line[0]), parseDouble(line[0])));
+				vertices.add(vertexIndex, new Vertex(parseDouble(line[1]), parseDouble(line[2]), parseDouble(line[3])));
+				vertexIndex++;
 			} else if (lines[i].startsWith("f")) {
 				String[] line = lines[i].split(" ");
+				int vertex1Index = (int)parseDouble((line[1].split("/"))[0]);
+				int vertex2Index = (int)parseDouble((line[2].split("/"))[0]);
+				int vertex3Index = (int)parseDouble((line[3].split("/"))[0]);
+				triangles.add(trianglesIndex, new Triangle(vertices.get(vertex1Index-1), vertices.get(vertex2Index-1), vertices.get(vertex3Index-1)));
+				trianglesIndex++;
+			} else if (lines[i].startsWith("mtllib")) {
 				
 			}
 		}
+		
 	}
 	
 	private static double parseDouble(String str){
 		try {
 			return Double.parseDouble(str);
 		} catch (Exception e) {
+			System.out.println("Heck! ParseDouble failed in OBJFile");
 			return 0;
 		}
 	}
