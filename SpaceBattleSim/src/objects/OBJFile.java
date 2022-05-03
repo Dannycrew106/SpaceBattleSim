@@ -21,6 +21,8 @@ public class OBJFile {
 		scanner.close();
 		String[] lines = fileString.split("\r\n|\r|\n");
 		
+		
+		
 		int vertexIndex = 0;
 		int trianglesIndex = 0;
 		

@@ -1,7 +1,5 @@
 package objects;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class WorldObject{
 	public double x = 0;
