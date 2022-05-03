@@ -58,6 +58,7 @@ public class MTLFile {
 				materials.get(materialsIndex - 1).Ns = nsValue;
 			}
 		}
+		System.out.println("MTLFile length is: " + lines.length);
 	}
 	public MTLMaterial findMaterial(String materialName) {
 		for (int i = 0; i < materials.size(); i++) {

@@ -44,7 +44,8 @@ public class OBJFile {
 				mtlLibrary.findMaterial(lines[i].split(" ")[1]);
 			}
 		}
-		
+		System.out.println("OBJFile length is: " + fileString.length());
+		System.out.println("OBJFile lines is: " + lines.length);
 	}
 	
 	private static double parseDouble(String str){
