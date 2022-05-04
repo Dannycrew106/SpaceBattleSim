@@ -4,6 +4,7 @@ import dependencies.WorldObject;
 
 public class SpaceBattleSim {
 	private static Renderer screen = new Renderer();
+	public static GameWorld world = new GameWorld();
 	
 	public static void main(String[] args) {
 		try {

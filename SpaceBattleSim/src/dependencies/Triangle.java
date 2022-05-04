@@ -6,6 +6,9 @@ public class Triangle {
 	public Vertex v1;
 	public Vertex v2;
 	public Vertex v3;
+	public int x;
+	public int y;
+	public int z;
 	
 	public Quaternion normal;
 	
