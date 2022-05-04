@@ -1,4 +1,4 @@
-package objects;
+package dependencies;
 
 public class Vertex {
 	// Create the actual vertex using quaternions relative to the center of an object

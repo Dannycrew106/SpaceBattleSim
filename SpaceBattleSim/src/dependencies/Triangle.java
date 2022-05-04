@@ -1,4 +1,4 @@
-package objects;
+package dependencies;
 
 import java.awt.Color;
 

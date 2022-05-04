@@ -1,4 +1,4 @@
-package objects;
+package dependencies;
 
 public class Quaternion{
 	// S is defined as the scalar quantity, while xi,yj,zk are defined as the vector coordinates of the quaternion

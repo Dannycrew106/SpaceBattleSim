@@ -17,6 +17,9 @@ public class Renderer extends JFrame {
 		frame.setSize(width, height);
 		frame.setBackground(Color.BLACK);
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		
 	}
 	
 	public void setUIFont(javax.swing.plaf.FontUIResource font) {

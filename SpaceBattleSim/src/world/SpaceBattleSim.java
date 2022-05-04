@@ -1,9 +1,6 @@
 package world;
-import objects.WorldObject;
-
 import java.io.FileNotFoundException;
-
-import objects.Quaternion;
+import dependencies.WorldObject;
 
 public class SpaceBattleSim {
 	private static Renderer screen = new Renderer();

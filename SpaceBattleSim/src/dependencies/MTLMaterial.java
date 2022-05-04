@@ -1,4 +1,4 @@
-package objects;
+package dependencies;
 
 public class MTLMaterial {
 	String name;
