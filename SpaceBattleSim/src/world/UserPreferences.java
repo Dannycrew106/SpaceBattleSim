@@ -12,6 +12,7 @@ public class UserPreferences {
 	// Size of the window in pixels
 	public static final int SCREEN_SIZE_X = 1920;
 	public static final int SCREEN_SIZE_Y = 1080;
+	public static final int FIELD_OF_VIEW = 90;
 	
 	// Bit of a complicated one, this one chooses all the .obj files to render into the world.
 	// If you want to add an object into the world, just find a suitable .obj file, slap it into the objects folder/package

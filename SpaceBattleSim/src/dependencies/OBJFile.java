@@ -25,6 +25,7 @@ public class OBJFile {
 		
 		int vertexIndex = 0;
 		int trianglesIndex = 0;
+		MTLMaterial materialInUse = new MTLMaterial("Default");
 		
 		for (int i = 0; i < lines.length; i++) {
 			if (lines[i].startsWith("#") || lines[i].startsWith("vn") || lines[i].startsWith("vt") || lines[i].startsWith("g")) {
@@ -38,7 +39,7 @@ public class OBJFile {
 				int vertex1Index = (int)parseDouble((line[1].split("/"))[0]);
 				int vertex2Index = (int)parseDouble((line[2].split("/"))[0]);
 				int vertex3Index = (int)parseDouble((line[3].split("/"))[0]);
-				triangles.add(trianglesIndex, new Triangle(vertices.get(vertex1Index-1), vertices.get(vertex2Index-1), vertices.get(vertex3Index-1), Color.white));
+				triangles.add(trianglesIndex, new Triangle(vertices.get(vertex1Index-1), vertices.get(vertex2Index-1), vertices.get(vertex3Index-1), materialInUse));
 				trianglesIndex++;
 			} else if (lines[i].startsWith("mtllib")) {
 				mtlLibrary = new MTLFile(lines[i].split(" ")[1]);
