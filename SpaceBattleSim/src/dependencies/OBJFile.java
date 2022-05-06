@@ -42,9 +42,17 @@ public class OBJFile {
 				triangles.add(trianglesIndex, new Triangle(vertices.get(vertex1Index-1), vertices.get(vertex2Index-1), vertices.get(vertex3Index-1), materialInUse));
 				trianglesIndex++;
 			} else if (lines[i].startsWith("mtllib")) {
-				mtlLibrary = new MTLFile(lines[i].split(" ")[1]);
+				try {
+					mtlLibrary = new MTLFile(lines[i].split(" ")[1]);
+				} catch (Exception e) {
+					System.out.println("No MTL Library Exists");
+				}
 			} else if (lines[i].startsWith("usemtl")) {
-				mtlLibrary.findMaterial(lines[i].split(" ")[1]);
+				try {
+					mtlLibrary.findMaterial(lines[i].split(" ")[1]);
+				} catch (Exception e) {
+					System.out.println("No MTL material Found");
+				}
 			}
 		}
 		System.out.println("OBJFile length is: " + fileString.length());

@@ -10,8 +10,8 @@ public class UserPreferences {
 	public static final int FRAMES_PER_SECOND = 60;
 	
 	// Size of the window in pixels
-	public static final int SCREEN_SIZE_X = 1920;
-	public static final int SCREEN_SIZE_Y = 1080;
+	public static final int SCREEN_SIZE_X = 1360;
+	public static final int SCREEN_SIZE_Y = 768;
 	public static final int FIELD_OF_VIEW = 90;
 	
 	// Bit of a complicated one, this one chooses all the .obj files to render into the world.
