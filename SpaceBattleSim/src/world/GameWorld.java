@@ -9,7 +9,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 
-public class GameWorld{
+public class GameWorld {
 	ArrayList<WorldObject> objects = new ArrayList<>();
 	
 	public static final int FRAMES_PER_SECOND = UserPreferences.FRAMES_PER_SECOND;
@@ -20,7 +20,6 @@ public class GameWorld{
 	private long minimumDeltaTime = 1000 / FRAMES_PER_SECOND;	
 	private long actualDeltaTime = 0;			
 	private Renderer render = new Renderer();
-	private Camera camera = new Camera();
 	
 	public void start() {
 		try {
@@ -29,9 +28,9 @@ public class GameWorld{
 			e.printStackTrace();
 		}
 		for (WorldObject currentObject : SpaceBattleSim.world.objects) {
+			System.out.println();
 			for (Triangle currentTriangle : currentObject.model.triangles) {
 				render.trianglesToRender.add(currentTriangle);
-				System.out.println(currentTriangle.x);
 			}
 		}
 		render.createScreen("Space Battle Sim");
