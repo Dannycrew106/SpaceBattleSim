@@ -34,6 +34,9 @@ public class Quaternion{
 	public void rotate(double xValue, double yValue, double zValue, double degrees) {
 		rotate(new Quaternion(0, xValue, yValue, zValue), degrees);
 	}
+	public String toString() {
+		return "S: " + s + " Xi: " + xi + " Yj: " + yj + "Zk:" + zk;
+	}
 	
 	// Static Methods
 	public static Quaternion multiply(Quaternion firstQuaternion, Quaternion secondQuaternion) {
@@ -44,6 +47,5 @@ public class Quaternion{
 				, ((firstQuaternion.s * secondQuaternion.yj) + (firstQuaternion.yj * secondQuaternion.s) - (firstQuaternion.xi * secondQuaternion.zk) + (firstQuaternion.zk * secondQuaternion.xi))
 				, ((firstQuaternion.s * secondQuaternion.zk) + (firstQuaternion.zk * secondQuaternion.s) + (firstQuaternion.xi * secondQuaternion.yj) - (firstQuaternion.yj * secondQuaternion.xi)));
 	}
-	
 	
 }

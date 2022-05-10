@@ -11,16 +11,17 @@ public class Renderer extends JFrame {
 	private static final long serialVersionUID = 5110994671381635202L;
 	ArrayList<Triangle> trianglesToRender = new ArrayList<>();
 	private JFrame frame = null;
-	private JButton button = new JButton("Exit");
 	private DrawGraphics g = new DrawGraphics();
-	private Camera camera = new Camera();
+	private Camera camera = new Camera(0, 100, 0);
 	
 	public static final int SCREEN_SIZE_X = UserPreferences.SCREEN_SIZE_X;
 	public static final int SCREEN_SIZE_Y = UserPreferences.SCREEN_SIZE_Y;
 	public static final int FOV = UserPreferences.FIELD_OF_VIEW;
+	public static final double FOVRADIANS = (int) ((FOV/360)*(Math.PI * 2));
 	
 	public void createScreen(String name) {
-		camera.directionFacing.rotate(0, 1, 0, 60);
+		//camera.directionFacing.rotate(0, 0, 1, 60);
+		System.out.println(camera.directionFacing.toString());
 		frame = new JFrame(name);
 		frame.add(g);
 		frame.setForeground(new Color(172, 211, 99));
@@ -51,13 +52,15 @@ public class Renderer extends JFrame {
 			}
 		}
 		private int getScreenXPosition(Vertex v) {
-			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - (camera.directionFacing.xi*Math.PI*2);
-			return (int) ((int) vXTheta*(SCREEN_SIZE_X * (FOV/360) * Math.PI * 2))+(SCREEN_SIZE_X/2);
+			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - (camera.directionFacing.xi*Math.PI*2-(Math.PI*2));
+			System.out.println("VXtheta: " + vXTheta);
+			System.out.println("Screen Position: " + (int) ((int) vXTheta*(SCREEN_SIZE_X / ((FOV/360) * Math.PI * 2)))+(SCREEN_SIZE_X/2));
+			return (int) ((int) vXTheta*(SCREEN_SIZE_X / FOVRADIANS))/2+(SCREEN_SIZE_X/2);
 		}
 		
 		private int getScreenYPosition(Vertex v) {
 			double vYTheta = Math.atan((v.z-camera.z)/getScreenXPosition(v)) - (camera.directionFacing.yj*Math.PI*2);
-			return (int) ((int) vYTheta*(SCREEN_SIZE_Y * (FOV/360) * Math.PI * 2))+(SCREEN_SIZE_Y/2);
+			return (int) ((int) vYTheta*(SCREEN_SIZE_Y / FOVRADIANS))+(SCREEN_SIZE_Y/2);
 		}
 	}
 }
