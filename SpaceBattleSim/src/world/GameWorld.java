@@ -22,6 +22,7 @@ public class GameWorld {
 	private Renderer render = new Renderer();
 	
 	public void start() {
+		Thread thread = new Thread();
 		try {
 			objects.add(new WorldObject("Box v1.obj"));
 		} catch (FileNotFoundException e) {
@@ -34,14 +35,17 @@ public class GameWorld {
 			}
 		}
 		render.createScreen("Space Battle Sim");
+		thread.start();
 		loop();
 	}
 	
 	private void loop() {
+		
 		while (true) {
 			nextRefreshTime = lastRefreshTime + minimumDeltaTime;
 			
 			while (System.currentTimeMillis() < nextRefreshTime) {
+				Thread.yield();
 				try {
 					Thread.sleep(1);
 				} catch (InterruptedException e) {

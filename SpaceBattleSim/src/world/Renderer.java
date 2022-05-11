@@ -17,10 +17,10 @@ public class Renderer extends JFrame {
 	public static final int SCREEN_SIZE_X = UserPreferences.SCREEN_SIZE_X;
 	public static final int SCREEN_SIZE_Y = UserPreferences.SCREEN_SIZE_Y;
 	public static final int FOV = UserPreferences.FIELD_OF_VIEW;
-	public static final double FOVRADIANS = (int) ((FOV/360)*(Math.PI * 2));
+	public static final double FOVRADIANS = ((FOV/360.0)*(Math.PI * 2));
 	
 	public void createScreen(String name) {
-		//camera.directionFacing.rotate(0, 0, 1, 60);
+		//camera.directionFacing.rotate(0, 1, 0, 10);
 		System.out.println(camera.directionFacing.toString());
 		frame = new JFrame(name);
 		frame.add(g);
@@ -45,6 +45,7 @@ public class Renderer extends JFrame {
 			
 			
 			for (Triangle current : trianglesToRender) {
+				
 				int[] xPoints = {getScreenXPosition(current.v1), getScreenXPosition(current.v2), getScreenXPosition(current.v3)};
 				int[] yPoints = {getScreenYPosition(current.v1), getScreenYPosition(current.v2), getScreenYPosition(current.v3)};
 				g.fillPolygon(xPoints, yPoints, 3);
@@ -52,15 +53,13 @@ public class Renderer extends JFrame {
 			}
 		}
 		private int getScreenXPosition(Vertex v) {
-			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - (camera.directionFacing.xi*Math.PI*2-(Math.PI*2));
-			System.out.println("VXtheta: " + vXTheta);
-			System.out.println("Screen Position: " + (int) ((int) vXTheta*(SCREEN_SIZE_X / ((FOV/360) * Math.PI * 2)))+(SCREEN_SIZE_X/2));
+			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - (((1 - camera.directionFacing.xi))*Math.PI*2);
 			return (int) ((int) vXTheta*(SCREEN_SIZE_X / FOVRADIANS))/2+(SCREEN_SIZE_X/2);
 		}
 		
 		private int getScreenYPosition(Vertex v) {
 			double vYTheta = Math.atan((v.z-camera.z)/getScreenXPosition(v)) - (camera.directionFacing.yj*Math.PI*2);
-			return (int) ((int) vYTheta*(SCREEN_SIZE_Y / FOVRADIANS))+(SCREEN_SIZE_Y/2);
+			return (int) ((int) vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9/16))))/2+(SCREEN_SIZE_Y/2);
 		}
 	}
 }
