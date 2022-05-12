@@ -12,7 +12,7 @@ public class Renderer extends JFrame {
 	ArrayList<Triangle> trianglesToRender = new ArrayList<>();
 	private JFrame frame = null;
 	private DrawGraphics g = new DrawGraphics();
-	private Camera camera = new Camera(0, 100, 0);
+	private Camera camera = new Camera(0, 10, 0);
 	
 	public static final int SCREEN_SIZE_X = UserPreferences.SCREEN_SIZE_X;
 	public static final int SCREEN_SIZE_Y = UserPreferences.SCREEN_SIZE_Y;
@@ -20,7 +20,6 @@ public class Renderer extends JFrame {
 	public static final double FOVRADIANS = ((FOV/360.0)*(Math.PI * 2));
 	
 	public void createScreen(String name) {
-		//camera.directionFacing.rotate(0, 1, 0, 10);
 		System.out.println(camera.directionFacing.toString());
 		frame = new JFrame(name);
 		frame.add(g);
@@ -42,7 +41,7 @@ public class Renderer extends JFrame {
 		private static final long serialVersionUID = -963524664888441777L;
 		
 		public void paint(Graphics g) {
-			
+			camera.directionFacing.rotate(0, 1, 0, 1);
 			
 			for (Triangle current : trianglesToRender) {
 				
@@ -58,8 +57,12 @@ public class Renderer extends JFrame {
 		}
 		
 		private int getScreenYPosition(Vertex v) {
-			double vYTheta = Math.atan((v.z-camera.z)/getScreenXPosition(v)) - (camera.directionFacing.yj*Math.PI*2);
-			return (int) ((int) vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9/16))))/2+(SCREEN_SIZE_Y/2);
+			double relativeX = v.x-camera.x;
+			double relativeY = v.y-camera.y;
+			double vYTheta = Math.atan((v.z-camera.z)/Math.sqrt((relativeX*relativeX)+(relativeY*relativeY))) - (camera.directionFacing.yj*Math.PI*2);
+			System.out.println("Length of XY Vector: " + Math.sqrt((relativeX*relativeX)+(relativeY*relativeY)) + " FOV Radians: " + FOVRADIANS);
+			System.out.println("VYTheta: " + vYTheta + " Screen Placement: " + ((int) ((int) vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9.000/16.000))))/2+(SCREEN_SIZE_Y/2)));
+			return (int) ((int) (-vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9.000/16.000))))/2)+(SCREEN_SIZE_Y/2);
 		}
 	}
 }
