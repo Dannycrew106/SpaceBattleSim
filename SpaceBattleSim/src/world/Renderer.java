@@ -42,17 +42,19 @@ public class Renderer extends JFrame {
 		
 		public void paint(Graphics g) {
 			camera.directionFacing.rotate(0, 1, 0, 1);
+			System.out.println("Camera X Direction Facing: " + camera.directionFacing.xi);
 			
 			for (Triangle current : trianglesToRender) {
 				
 				int[] xPoints = {getScreenXPosition(current.v1), getScreenXPosition(current.v2), getScreenXPosition(current.v3)};
 				int[] yPoints = {getScreenYPosition(current.v1), getScreenYPosition(current.v2), getScreenYPosition(current.v3)};
 				g.fillPolygon(xPoints, yPoints, 3);
-				g.drawPolygon(xPoints, yPoints, 3);
+				//g.drawPolygon(xPoints, yPoints, 3);
 			}
 		}
 		private int getScreenXPosition(Vertex v) {
-			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - (((1 - camera.directionFacing.xi))*Math.PI*2);
+			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - (((1 - camera.directionFacing.xi)-1)*Math.PI*2);
+			//System.out.println();
 			return (int) ((int) vXTheta*(SCREEN_SIZE_X / FOVRADIANS))/2+(SCREEN_SIZE_X/2);
 		}
 		
@@ -60,9 +62,7 @@ public class Renderer extends JFrame {
 			double relativeX = v.x-camera.x;
 			double relativeY = v.y-camera.y;
 			double vYTheta = Math.atan((v.z-camera.z)/Math.sqrt((relativeX*relativeX)+(relativeY*relativeY))) - (camera.directionFacing.yj*Math.PI*2);
-			System.out.println("Length of XY Vector: " + Math.sqrt((relativeX*relativeX)+(relativeY*relativeY)) + " FOV Radians: " + FOVRADIANS);
-			System.out.println("VYTheta: " + vYTheta + " Screen Placement: " + ((int) ((int) vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9.000/16.000))))/2+(SCREEN_SIZE_Y/2)));
-			return (int) ((int) (-vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9.000/16.000))))/2)+(SCREEN_SIZE_Y/2);
+			return (int) ((int) (vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9.000/16.000))))/2)+(SCREEN_SIZE_Y/2);
 		}
 	}
 }
