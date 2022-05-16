@@ -12,7 +12,7 @@ public class Renderer extends JFrame {
 	ArrayList<Triangle> trianglesToRender = new ArrayList<>();
 	private JFrame frame = null;
 	private DrawGraphics g = new DrawGraphics();
-	private Camera camera = new Camera(0, 10, 0);
+	private Camera camera = new Camera(1, 0, 0);
 	
 	public static final int SCREEN_SIZE_X = UserPreferences.SCREEN_SIZE_X;
 	public static final int SCREEN_SIZE_Y = UserPreferences.SCREEN_SIZE_Y;
@@ -23,7 +23,7 @@ public class Renderer extends JFrame {
 		System.out.println(camera.directionFacing.toString());
 		frame = new JFrame(name);
 		frame.add(g);
-		frame.setForeground(new Color(172, 211, 99));
+		frame.setBackground(Color.red);
 		frame.setSize(SCREEN_SIZE_X, SCREEN_SIZE_Y);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -49,20 +49,21 @@ public class Renderer extends JFrame {
 				int[] xPoints = {getScreenXPosition(current.v1), getScreenXPosition(current.v2), getScreenXPosition(current.v3)};
 				int[] yPoints = {getScreenYPosition(current.v1), getScreenYPosition(current.v2), getScreenYPosition(current.v3)};
 				g.fillPolygon(xPoints, yPoints, 3);
+				System.out.println("XPoint 1: " + xPoints[0] + " XPoint 2: " + xPoints[1] + " XPoint 3:" + xPoints[2]);
 				//g.drawPolygon(xPoints, yPoints, 3);
 			}
 		}
 		private int getScreenXPosition(Vertex v) {
-			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - (((1 - camera.directionFacing.xi)-1)*Math.PI*2);
+			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - (((1 - (camera.directionFacing.xi * 1.000))-1)*Math.PI*2);
 			//System.out.println();
-			return (int) ((int) vXTheta*(SCREEN_SIZE_X / FOVRADIANS))/2+(SCREEN_SIZE_X/2);
+			return (int) ((vXTheta*(SCREEN_SIZE_X / FOVRADIANS))/2+(SCREEN_SIZE_X/2));
 		}
 		
 		private int getScreenYPosition(Vertex v) {
 			double relativeX = v.x-camera.x;
 			double relativeY = v.y-camera.y;
 			double vYTheta = Math.atan((v.z-camera.z)/Math.sqrt((relativeX*relativeX)+(relativeY*relativeY))) - (camera.directionFacing.yj*Math.PI*2);
-			return (int) ((int) (vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9.000/16.000))))/2)+(SCREEN_SIZE_Y/2);
+			return (int) ((vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9.000/16.000))))/2+(SCREEN_SIZE_Y/2));
 		}
 	}
 }
