@@ -27,6 +27,12 @@ public class Renderer extends JFrame {
 		frame.setSize(SCREEN_SIZE_X, SCREEN_SIZE_Y);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		for (Triangle currentTriangle : trianglesToRender) {
+			System.out.println("New Triangle");
+			System.out.println("V1: " + currentTriangle.v1.x + " " + currentTriangle.v1.y + " " + currentTriangle.v1.z);
+			System.out.println("V2: " + currentTriangle.v2.x + " " + currentTriangle.v2.y + " " + currentTriangle.v2.z);
+			System.out.println("V3: " + currentTriangle.v3.x + " " + currentTriangle.v3.y + " " + currentTriangle.v3.z);
+		}
 	}
 	
 	public void refresh() {
@@ -49,13 +55,12 @@ public class Renderer extends JFrame {
 				int[] xPoints = {getScreenXPosition(current.v1), getScreenXPosition(current.v2), getScreenXPosition(current.v3)};
 				int[] yPoints = {getScreenYPosition(current.v1), getScreenYPosition(current.v2), getScreenYPosition(current.v3)};
 				g.fillPolygon(xPoints, yPoints, 3);
-				System.out.println("XPoint 1: " + xPoints[0] + " XPoint 2: " + xPoints[1] + " XPoint 3:" + xPoints[2]);
+				System.out.println("XPoint 1: " + xPoints[0] + " XPoint 2: " + xPoints[1] + " XPoint 3: " + xPoints[2]);
 				//g.drawPolygon(xPoints, yPoints, 3);
 			}
 		}
 		private int getScreenXPosition(Vertex v) {
 			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - (((1 - (camera.directionFacing.xi * 1.000))-1)*Math.PI*2);
-			//System.out.println();
 			return (int) ((vXTheta*(SCREEN_SIZE_X / FOVRADIANS))/2+(SCREEN_SIZE_X/2));
 		}
 		
