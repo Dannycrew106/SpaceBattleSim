@@ -12,7 +12,7 @@ public class Renderer extends JFrame {
 	ArrayList<Triangle> trianglesToRender = new ArrayList<>();
 	private JFrame frame = null;
 	private DrawGraphics g = new DrawGraphics();
-	private Camera camera = new Camera(1, 0, 0);
+	private Camera camera = new Camera(0, 3000, -1000);
 	
 	public static final int SCREEN_SIZE_X = UserPreferences.SCREEN_SIZE_X;
 	public static final int SCREEN_SIZE_Y = UserPreferences.SCREEN_SIZE_Y;
@@ -21,6 +21,7 @@ public class Renderer extends JFrame {
 	
 	public void createScreen(String name) {
 		System.out.println(camera.directionFacing.toString());
+		camera.directionFacing.rotate(0, 1, 0, 75);
 		frame = new JFrame(name);
 		frame.add(g);
 		frame.setBackground(Color.red);
@@ -47,8 +48,9 @@ public class Renderer extends JFrame {
 		private static final long serialVersionUID = -963524664888441777L;
 		
 		public void paint(Graphics g) {
-			camera.directionFacing.rotate(0, 1, 0, 1);
+			camera.directionFacing.rotate(1, 0, 0, 1);
 			System.out.println("Camera X Direction Facing: " + camera.directionFacing.xi);
+			doQuickSort(trianglesToRender);
 			
 			for (Triangle current : trianglesToRender) {
 				
@@ -56,6 +58,7 @@ public class Renderer extends JFrame {
 				int[] yPoints = {getScreenYPosition(current.v1), getScreenYPosition(current.v2), getScreenYPosition(current.v3)};
 				g.fillPolygon(xPoints, yPoints, 3);
 				System.out.println("XPoint 1: " + xPoints[0] + " XPoint 2: " + xPoints[1] + " XPoint 3: " + xPoints[2]);
+				System.out.println("YPoint 1: " + yPoints[0] + " YPoint 2: " + yPoints[1] + " YPoint 3: " + yPoints[2]);
 				//g.drawPolygon(xPoints, yPoints, 3);
 			}
 		}
@@ -70,5 +73,39 @@ public class Renderer extends JFrame {
 			double vYTheta = Math.atan((v.z-camera.z)/Math.sqrt((relativeX*relativeX)+(relativeY*relativeY))) - (camera.directionFacing.yj*Math.PI*2);
 			return (int) ((vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9.000/16.000))))/2+(SCREEN_SIZE_Y/2));
 		}
+	}
+	
+	// Yes I am using my own quicksort algorithm to sort nearest and farthest triangles
+	public void doQuickSort(ArrayList<Triangle> triangles) {
+		doQuickSort(triangles, 0, triangles.size() - 1);
+	}
+	
+	private void doQuickSort(ArrayList<Triangle> triangles, int low, int high) {
+		if (low < high) {
+			swap(triangles, low, (int) Math.floor(Math.random()*(high-low))+low);
+			Triangle pivotTriangle = triangles.get(low);
+			double pivotValue = getDistanceToCamera(pivotTriangle.x, pivotTriangle.y, pivotTriangle.z);
+			int index = low;
+		
+			for (int i = low + 1; i <= high; i++) {
+				if (getDistanceToCamera(triangles.get(i).x,triangles.get(i).y, triangles.get(i).z) < pivotValue) {
+					swap(triangles, i, index + 1);
+					index++;
+				}
+			}
+			
+			swap(triangles, low, Math.min(index, triangles.size()));
+			doQuickSort(triangles, low, index - 1);
+			doQuickSort(triangles, Math.min(index + 1, triangles.size()), high);
+		}
+	}
+	
+	private void swap(ArrayList<Triangle> triangles, int firstIndex, int secondIndex) {
+		Triangle temp = triangles.get(firstIndex);
+		triangles.set(firstIndex, triangles.get(secondIndex));
+		triangles.set(secondIndex, temp);
+	}
+	public double getDistanceToCamera(double x, double y, double z) {
+		return Math.sqrt(Math.pow(x-camera.x, 2) + Math.pow(y-camera.y, 2) + Math.pow(z-camera.z, 2));
 	}
 }

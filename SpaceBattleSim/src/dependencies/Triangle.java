@@ -2,7 +2,7 @@ package dependencies;
 
 import java.awt.Color;
 
-public class Triangle implements Comparable<Triangle>{
+public class Triangle{
 	public Vertex v1;
 	public Vertex v2;
 	public Vertex v3;
