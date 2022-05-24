@@ -24,7 +24,7 @@ public class GameWorld {
 	public void start() {
 		Thread thread = new Thread();
 		try {
-			objects.add(new WorldObject("Box v1.obj"));
+			objects.add(new WorldObject("actual.obj"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

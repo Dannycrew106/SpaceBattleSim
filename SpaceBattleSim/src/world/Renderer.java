@@ -12,7 +12,7 @@ public class Renderer extends JFrame {
 	ArrayList<Triangle> trianglesToRender = new ArrayList<>();
 	private JFrame frame = null;
 	private DrawGraphics g = new DrawGraphics();
-	private Camera camera = new Camera(0, 2000, 100);
+	private Camera camera = new Camera(0, -3, 0);
 	
 	public static final int SCREEN_SIZE_X = UserPreferences.SCREEN_SIZE_X;
 	public static final int SCREEN_SIZE_Y = UserPreferences.SCREEN_SIZE_Y;
@@ -52,31 +52,28 @@ public class Renderer extends JFrame {
 			System.out.println("Camera X Direction Facing: " + camera.directionFacing.xi);
 			doQuickSort(trianglesToRender);
 			
-			for (Triangle current : trianglesToRender) {
+			for (int i = trianglesToRender.size()-1; i >= 0; i--) {
 				
-				int[] xPoints = {getScreenXPosition(current.v1), getScreenXPosition(current.v2), getScreenXPosition(current.v3)};
-				int[] yPoints = {getScreenYPosition(current.v1), getScreenYPosition(current.v2), getScreenYPosition(current.v3)};
-				g.setColor(Color.red);
-				g.drawOval(xPoints[0]-3, yPoints[0]-3, 5, 5);
-				g.drawOval(xPoints[1]-3, yPoints[1]-3, 5, 5);
-				g.drawOval(xPoints[2]-3, yPoints[2]-3, 5, 5);
-				g.drawPolygon(xPoints, yPoints, 3);
+				int[] xPoints = {getScreenXPosition(trianglesToRender.get(i).v1), getScreenXPosition(trianglesToRender.get(i).v2), getScreenXPosition(trianglesToRender.get(i).v3)};
+				int[] yPoints = {getScreenYPosition(trianglesToRender.get(i).v1), getScreenYPosition(trianglesToRender.get(i).v2), getScreenYPosition(trianglesToRender.get(i).v3)};
 				//g.setColor(Color.black);
 				//g.fillPolygon(xPoints, yPoints, 3);
 				System.out.println("XPoint 1: " + xPoints[0] + " XPoint 2: " + xPoints[1] + " XPoint 3: " + xPoints[2]);
-				System.out.println("YPoint 1: " + yPoints[0] + " YPoint 2: " + yPoints[1] + " YPoint 3: " + yPoints[2]);
-				//g.drawPolygon(xPoints, yPoints, 3);
+				//System.out.println("YPoint 1: " + yPoints[0] + " YPoint 2: " + yPoints[1] + " YPoint 3: " + yPoints[2]);
+				g.setColor(Color.red);
+				g.drawPolygon(xPoints, yPoints, 3);
 			}
 		}
 		private int getScreenXPosition(Vertex v) {
 			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - (((1 - (camera.directionFacing.xi * 1.000))-1)*Math.PI*2);
+			System.out.println("vXTheta: " + vXTheta);
 			return (int) ((vXTheta*(SCREEN_SIZE_X / FOVRADIANS))/2+(SCREEN_SIZE_X/2));
 		}
 		
 		private int getScreenYPosition(Vertex v) {
 			double relativeX = v.x-camera.x;
 			double relativeY = v.y-camera.y;
-			double vYTheta = Math.atan((v.z-camera.z)/Math.sqrt((relativeX*relativeX)+(relativeY*relativeY))) - (camera.directionFacing.yj*Math.PI*2);
+			double vYTheta = Math.atan((v.z-camera.z)/Math.sqrt(Math.abs(relativeX*relativeX)+Math.abs(relativeY*relativeY))) - (camera.directionFacing.yj*Math.PI*2);
 			return (int) ((vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9.000/16.000))))/2+(SCREEN_SIZE_Y/2));
 		}
 	}

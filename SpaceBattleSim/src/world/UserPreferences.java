@@ -17,7 +17,7 @@ public class UserPreferences {
 	// Bit of a complicated one, this one chooses all the .obj files to render into the world.
 	// If you want to add an object into the world, just find a suitable .obj file, slap it into the objects folder/package
 	// Then add its name into this array
-	public static final String[] OBJECTS_IN_USE = {"Box v1.obj"};
+	public static final String[] OBJECTS_IN_USE = {"actual.obj"};
 	
 	
 }
