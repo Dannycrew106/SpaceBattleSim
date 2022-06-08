@@ -11,10 +11,12 @@ public class Renderer extends JFrame {
 	
 	private static final long serialVersionUID = 5110994671381635202L;
 	ArrayList<Triangle> trianglesToRender = new ArrayList<>();
-	private JFrame frame = null;
-	private DrawGraphics g = new DrawGraphics();
+	private JFrame frame;
+	//private DrawGraphics g = new DrawGraphics();
 	public Camera camera = new Camera(0, -3, 0);
-	public JPanel panel;
+	public DrawGraphics drawGraphics;
+	Container pane;
+	public JPanel panelToRender;
 	
 	public static final int SCREEN_SIZE_X = UserPreferences.SCREEN_SIZE_X;
 	public static final int SCREEN_SIZE_Y = UserPreferences.SCREEN_SIZE_Y;
@@ -27,13 +29,17 @@ public class Renderer extends JFrame {
 		System.out.println(camera.directionFacing.toString());
 		camera.directionFacing.rotate(0, 1, 0, 50);
 		//camera.directionFacing.rotate(1, 0, 0, -10);
-		panel = new DrawGraphics();
 		frame = new JFrame(name);
-		frame.add(g);
-		//frame.setBackground(Color.red);
-		frame.setSize(SCREEN_SIZE_X, SCREEN_SIZE_Y);
 		frame.setVisible(true);
+		frame.setSize(SCREEN_SIZE_X, SCREEN_SIZE_Y);
+		pane = frame.getContentPane();
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		drawGraphics = new DrawGraphics();
+		panelToRender = drawGraphics.panel;
+		pane.add(panelToRender, BorderLayout.CENTER);
+		drawGraphics.panel.repaint();
+		
+		//frame.setBackground(Color.red);
 		for (Triangle currentTriangle : trianglesToRender) {
 			System.out.println("New Triangle");
 			System.out.println("V1: " + currentTriangle.v1.x + " " + currentTriangle.v1.y + " " + currentTriangle.v1.z);
@@ -46,8 +52,7 @@ public class Renderer extends JFrame {
 	}
 	
 	public void refresh() {
-		//panel.repaint();
-		g.repaint();
+		drawGraphics.panel.repaint();
 	}
 	
 	public void setUIFont(javax.swing.plaf.FontUIResource font) {
@@ -56,26 +61,37 @@ public class Renderer extends JFrame {
 	
 	class DrawGraphics extends JPanel {
 		
+		public JPanel panel = null;
+		
+		public DrawGraphics() {
+			panel = new JPanel() {
+				private static final long serialVersionUID = -2518078995831665429L;
+
+				public void paintComponent(Graphics g) {
+					g.setColor(Color.white);
+					g.fillRect(0, 0,  SCREEN_SIZE_X, SCREEN_SIZE_Y);
+					
+					//camera.directionFacing.rotate(0, 1, 0, 1);
+					System.out.println("Camera X Direction Facing: " + camera.directionFacing.xi);
+					System.out.println("Camera X: " + camera.x + " Y: " + camera.y + " Z: " + camera.z);
+					doQuickSort(trianglesToRender);
+				
+					for (int i = trianglesToRender.size()-1; i >= 0; i--) {
+					
+						int[] xPoints = {getScreenXPosition(trianglesToRender.get(i).v1), getScreenXPosition(trianglesToRender.get(i).v2), getScreenXPosition(trianglesToRender.get(i).v3)};
+						int[] yPoints = {getScreenYPosition(trianglesToRender.get(i).v1), getScreenYPosition(trianglesToRender.get(i).v2), getScreenYPosition(trianglesToRender.get(i).v3)};
+						//g.setColor(Color.black);
+						//g.fillPolygon(xPoints, yPoints, 3);
+						//System.out.println("XPoint 1: " + xPoints[0] + " XPoint 2: " + xPoints[1] + " XPoint 3: " + xPoints[2]);
+						//System.out.println("YPoint 1: " + yPoints[0] + " YPoint 2: " + yPoints[1] + " YPoint 3: " + yPoints[2]);
+						g.setColor(Color.red);
+						g.drawPolygon(xPoints, yPoints, 3);
+					}
+				}
+			};
+		}
 		
 		private static final long serialVersionUID = -963524664888441777L;
-		public void paintComponent(Graphics g) {
-			//camera.directionFacing.rotate(0, 1, 0, 1);
-			System.out.println("Camera X Direction Facing: " + camera.directionFacing.xi);
-			System.out.println("Camera X: " + camera.x + " Y: " + camera.y + " Z: " + camera.z);
-			doQuickSort(trianglesToRender);
-			
-			for (int i = trianglesToRender.size()-1; i >= 0; i--) {
-				
-				int[] xPoints = {getScreenXPosition(trianglesToRender.get(i).v1), getScreenXPosition(trianglesToRender.get(i).v2), getScreenXPosition(trianglesToRender.get(i).v3)};
-				int[] yPoints = {getScreenYPosition(trianglesToRender.get(i).v1), getScreenYPosition(trianglesToRender.get(i).v2), getScreenYPosition(trianglesToRender.get(i).v3)};
-				//g.setColor(Color.black);
-				//g.fillPolygon(xPoints, yPoints, 3);
-				//System.out.println("XPoint 1: " + xPoints[0] + " XPoint 2: " + xPoints[1] + " XPoint 3: " + xPoints[2]);
-				//System.out.println("YPoint 1: " + yPoints[0] + " YPoint 2: " + yPoints[1] + " YPoint 3: " + yPoints[2]);
-				g.setColor(Color.red);
-				g.drawPolygon(xPoints, yPoints, 3);
-			}
-		}
 		private int getScreenXPosition(Vertex v) {
 			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - Math.asin(camera.directionFacing.xi)*2;
 			//System.out.println("vXTheta: " + vXTheta);
