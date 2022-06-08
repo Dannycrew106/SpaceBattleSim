@@ -31,25 +31,25 @@ public class MTLFile {
 				String green = lines[i].split(" ")[2];
 				String blue = lines[i].split(" ")[3];
 				
-				materials.get(materialsIndex - 1).ambientColor[0] = parseDouble(red);
-				materials.get(materialsIndex - 1).ambientColor[1] = parseDouble(green);
-				materials.get(materialsIndex - 1).ambientColor[2] = parseDouble(blue);
+				materials.get(materialsIndex - 1).ambientColor[0] = parseFloat(red);
+				materials.get(materialsIndex - 1).ambientColor[1] = parseFloat(green);
+				materials.get(materialsIndex - 1).ambientColor[2] = parseFloat(blue);
 			} else if (lines[i].startsWith("Kd")) {
 				String red = lines[i].split(" ")[1];
 				String green = lines[i].split(" ")[2];
 				String blue = lines[i].split(" ")[3];
 				
-				materials.get(materialsIndex - 1).diffuseColor[0] = parseDouble(red);
-				materials.get(materialsIndex - 1).diffuseColor[1] = parseDouble(green);
-				materials.get(materialsIndex - 1).diffuseColor[2] = parseDouble(blue);
+				materials.get(materialsIndex - 1).diffuseColor[0] = parseFloat(red);
+				materials.get(materialsIndex - 1).diffuseColor[1] = parseFloat(green);
+				materials.get(materialsIndex - 1).diffuseColor[2] = parseFloat(blue);
 			} else if (lines[i].startsWith("Ks")) {
 				String red = lines[i].split(" ")[1];
 				String green = lines[i].split(" ")[2];
 				String blue = lines[i].split(" ")[3];
 				
-				materials.get(materialsIndex - 1).specularColor[0] = parseDouble(red);
-				materials.get(materialsIndex - 1).specularColor[1] = parseDouble(green);
-				materials.get(materialsIndex - 1).specularColor[2] = parseDouble(blue);
+				materials.get(materialsIndex - 1).specularColor[0] = parseFloat(red);
+				materials.get(materialsIndex - 1).specularColor[1] = parseFloat(green);
+				materials.get(materialsIndex - 1).specularColor[2] = parseFloat(blue);
 			} else if (lines[i].startsWith("illum")) {
 				byte illumValue = (byte) Math.min(parseDouble(lines[i].split(" ")[1]), 2);
 				materials.get(materialsIndex - 1).illum = illumValue;
@@ -74,6 +74,14 @@ public class MTLFile {
 			return Double.parseDouble(str);
 		} catch (Exception e) {
 			System.out.println("Parse Double failed at MTLFile");
+			return 0;
+		}
+	}
+	private float parseFloat(String str) {
+		try {
+			return Float.parseFloat(str);
+		} catch (Exception e) {
+			System.out.println("Parse Float failed at MTLFile");
 			return 0;
 		}
 	}

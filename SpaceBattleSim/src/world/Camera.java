@@ -32,14 +32,57 @@ public class Camera {
 	public void update(KeyboardInput keyboard, long deltaTime) {
 		System.out.println("Updated Camera");
 		double deltaTimeCoefficient = (deltaTime/minimumDeltaTime);
+		//W
 		if (keyboard.keyDown(87)) {
-			System.out.println("W is pressed!");
-			x += 0.1 * directionFacing.xi * deltaTimeCoefficient;
-			y += 0.1 * directionFacing.yj * deltaTimeCoefficient;
+			y += 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			x += 0.1 * directionFacing.yj * deltaTimeCoefficient;
+			z += 0.1 * directionFacing.xi * deltaTimeCoefficient;
 		}
+		//S
 		if (keyboard.keyDown(83)) {
-			x -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
-			y -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
+			y -= 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			x -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
+			z -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
+		}
+		//A
+		if (keyboard.keyDown(65)) {
+			y += 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			x += 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			z += 0.1 * directionFacing.yj * deltaTimeCoefficient;
+		}
+		//D
+		if (keyboard.keyDown(68)) {
+			y -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			x -= 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			z -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
+		}
+		//E
+		if (keyboard.keyDown(69)) {
+			y -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			x -= 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			z -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
+		}
+		//Q
+		if (keyboard.keyDown(81)) {
+			y -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			x -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
+			z -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
+		}
+		//UP arrow
+		if (keyboard.keyDown(38)) {
+			directionFacing.rotate(1, 0, 0, -1*deltaTimeCoefficient);
+		}
+		//Down arrow
+		if (keyboard.keyDown(40)) {
+			directionFacing.rotate(1, 0, 0, 1*deltaTimeCoefficient);
+		}
+		//Left Arrow
+		if (keyboard.keyDown(37)) {
+			directionFacing.rotate(0, 1, 0, 1*deltaTimeCoefficient);
+		}
+		//Right arrow
+		if (keyboard.keyDown(39)) {
+			directionFacing.rotate(0, 1, 0, -1*deltaTimeCoefficient);
 		}
 	}
 }

@@ -1,15 +1,20 @@
 package dependencies;
 
+import java.awt.Color;
+
 public class MTLMaterial {
 	String name;
-	double[] ambientColor = {0.2, 0.2, 0.2};
-	double[] diffuseColor = {0.8, 0.8, 0.8};
-	double[] specularColor = {1.0, 1.0, 1.0};
+	float[] ambientColor = {0.2f, 0.2f, 0.2f};
+	float[] diffuseColor = {0.8f, 0.8f, 0.8f};
+	float[] specularColor = {1.0f, 1.0f, 1.0f};
 	double Ns = 1;
 	
 	byte illum = 0;
 	
 	public MTLMaterial(String name) {
 		this.name = name;
+	}
+	public Color getBasicColor() {
+		return new Color(diffuseColor[0], diffuseColor[1], diffuseColor[2]);
 	}
 }

@@ -26,8 +26,8 @@ public class Renderer extends JFrame {
 	public KeyboardInput keyboard = new KeyboardInput();
 	
 	public void createScreen(String name) {
-		System.out.println(camera.directionFacing.toString());
-		camera.directionFacing.rotate(0, 1, 0, 50);
+		//System.out.println(camera.directionFacing.toString());
+		//camera.directionFacing.rotate(0, 1, 0, 50);
 		//camera.directionFacing.rotate(1, 0, 0, -10);
 		frame = new JFrame(name);
 		frame.setVisible(true);
@@ -40,12 +40,12 @@ public class Renderer extends JFrame {
 		drawGraphics.panel.repaint();
 		
 		//frame.setBackground(Color.red);
-		for (Triangle currentTriangle : trianglesToRender) {
+		/*for (Triangle currentTriangle : trianglesToRender) {
 			System.out.println("New Triangle");
 			System.out.println("V1: " + currentTriangle.v1.x + " " + currentTriangle.v1.y + " " + currentTriangle.v1.z);
 			System.out.println("V2: " + currentTriangle.v2.x + " " + currentTriangle.v2.y + " " + currentTriangle.v2.z);
 			System.out.println("V3: " + currentTriangle.v3.x + " " + currentTriangle.v3.y + " " + currentTriangle.v3.z);
-		}
+		}*/
 		
 		addKeyListener(keyboard);
 		frame.addKeyListener(keyboard);
@@ -72,7 +72,7 @@ public class Renderer extends JFrame {
 					g.fillRect(0, 0,  SCREEN_SIZE_X, SCREEN_SIZE_Y);
 					
 					//camera.directionFacing.rotate(0, 1, 0, 1);
-					System.out.println("Camera X Direction Facing: " + camera.directionFacing.xi);
+					System.out.println("Direction Facing X:  " + camera.directionFacing.xi + " Y: " + camera.directionFacing.yj + " Z: " + camera.directionFacing.zk);
 					System.out.println("Camera X: " + camera.x + " Y: " + camera.y + " Z: " + camera.z);
 					doQuickSort(trianglesToRender);
 				
@@ -80,7 +80,7 @@ public class Renderer extends JFrame {
 					
 						int[] xPoints = {getScreenXPosition(trianglesToRender.get(i).v1), getScreenXPosition(trianglesToRender.get(i).v2), getScreenXPosition(trianglesToRender.get(i).v3)};
 						int[] yPoints = {getScreenYPosition(trianglesToRender.get(i).v1), getScreenYPosition(trianglesToRender.get(i).v2), getScreenYPosition(trianglesToRender.get(i).v3)};
-						g.setColor(Color.black);
+						g.setColor(trianglesToRender.get(i).material.getBasicColor());
 						g.fillPolygon(xPoints, yPoints, 3);
 						//System.out.println("XPoint 1: " + xPoints[0] + " XPoint 2: " + xPoints[1] + " XPoint 3: " + xPoints[2]);
 						//System.out.println("YPoint 1: " + yPoints[0] + " YPoint 2: " + yPoints[1] + " YPoint 3: " + yPoints[2]);
