@@ -80,8 +80,8 @@ public class Renderer extends JFrame {
 					
 						int[] xPoints = {getScreenXPosition(trianglesToRender.get(i).v1), getScreenXPosition(trianglesToRender.get(i).v2), getScreenXPosition(trianglesToRender.get(i).v3)};
 						int[] yPoints = {getScreenYPosition(trianglesToRender.get(i).v1), getScreenYPosition(trianglesToRender.get(i).v2), getScreenYPosition(trianglesToRender.get(i).v3)};
-						//g.setColor(Color.black);
-						//g.fillPolygon(xPoints, yPoints, 3);
+						g.setColor(Color.black);
+						g.fillPolygon(xPoints, yPoints, 3);
 						//System.out.println("XPoint 1: " + xPoints[0] + " XPoint 2: " + xPoints[1] + " XPoint 3: " + xPoints[2]);
 						//System.out.println("YPoint 1: " + yPoints[0] + " YPoint 2: " + yPoints[1] + " YPoint 3: " + yPoints[2]);
 						g.setColor(Color.red);

@@ -34,12 +34,12 @@ public class Camera {
 		double deltaTimeCoefficient = (deltaTime/minimumDeltaTime);
 		if (keyboard.keyDown(87)) {
 			System.out.println("W is pressed!");
-			x += 1 * directionFacing.xi * deltaTimeCoefficient;
-			y += 1 * directionFacing.yj * deltaTimeCoefficient;
+			x += 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			y += 0.1 * directionFacing.yj * deltaTimeCoefficient;
 		}
 		if (keyboard.keyDown(83)) {
-			x -= 1 * directionFacing.xi * deltaTimeCoefficient;
-			y -= 1 * directionFacing.yj * deltaTimeCoefficient;
+			x -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			y -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
 		}
 	}
 }

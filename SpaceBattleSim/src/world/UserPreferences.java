@@ -7,7 +7,7 @@ public class UserPreferences {
 	
 	// Pretty easy to modify, just change the values to the way you want, I've put comments to explain specific ones that aren't self explanatory
 	
-	public static final int FRAMES_PER_SECOND = 1;
+	public static final int FRAMES_PER_SECOND = 30;
 	
 	// Size of the window in pixels
 	public static final int SCREEN_SIZE_X = 1360;
