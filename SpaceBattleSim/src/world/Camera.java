@@ -1,8 +1,11 @@
 package world;
 
+import dependencies.KeyboardInput;
 import dependencies.Quaternion;
 
 public class Camera {
+	private final long minimumDeltaTime = 1000 / UserPreferences.FRAMES_PER_SECOND;
+	
 	public double x;
 	public double y;
 	public double z;
@@ -24,5 +27,19 @@ public class Camera {
 	
 	public void moveForward(double distance) {
 		
+	}
+	
+	public void update(KeyboardInput keyboard, long deltaTime) {
+		System.out.println("Updated Camera");
+		double deltaTimeCoefficient = (deltaTime/minimumDeltaTime);
+		if (keyboard.keyDown(87)) {
+			System.out.println("W is pressed!");
+			x += 1 * directionFacing.xi * deltaTimeCoefficient;
+			y += 1 * directionFacing.yj * deltaTimeCoefficient;
+		}
+		if (keyboard.keyDown(83)) {
+			x -= 1 * directionFacing.xi * deltaTimeCoefficient;
+			y -= 1 * directionFacing.yj * deltaTimeCoefficient;
+		}
 	}
 }

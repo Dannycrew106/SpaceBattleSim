@@ -52,13 +52,15 @@ public class GameWorld {
 					e.printStackTrace();
 				}
 			}
+			actualDeltaTime = (System.currentTimeMillis() - lastRefreshTime);
 			lastRefreshTime = System.currentTimeMillis();
+			
+			render.keyboard.poll();
+
+			render.camera.update(render.keyboard, actualDeltaTime);
 			
 			render.refresh();
 		}
 	}
 	
-	
-	
-
 }

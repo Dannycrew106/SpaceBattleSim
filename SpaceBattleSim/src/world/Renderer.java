@@ -1,9 +1,10 @@
 package world;
 import javax.swing.*;
 
-import dependencies.Triangle;
-import dependencies.Vertex;
+import dependencies.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Renderer extends JFrame {
@@ -12,19 +13,24 @@ public class Renderer extends JFrame {
 	ArrayList<Triangle> trianglesToRender = new ArrayList<>();
 	private JFrame frame = null;
 	private DrawGraphics g = new DrawGraphics();
-	private Camera camera = new Camera(0, -3, 0);
+	public Camera camera = new Camera(0, -3, 0);
+	public JPanel panel;
 	
 	public static final int SCREEN_SIZE_X = UserPreferences.SCREEN_SIZE_X;
 	public static final int SCREEN_SIZE_Y = UserPreferences.SCREEN_SIZE_Y;
 	public static final int FOV = UserPreferences.FIELD_OF_VIEW;
-	public static final double FOVRADIANS = ((FOV/360.0)*(Math.PI * 2));
+	public static final double FOVRADIANS = Math.toRadians(FOV);
+	
+	public KeyboardInput keyboard = new KeyboardInput();
 	
 	public void createScreen(String name) {
 		System.out.println(camera.directionFacing.toString());
-		camera.directionFacing.rotate(0, 1, 0, 75);
+		camera.directionFacing.rotate(0, 1, 0, 50);
+		//camera.directionFacing.rotate(1, 0, 0, -10);
+		panel = new DrawGraphics();
 		frame = new JFrame(name);
 		frame.add(g);
-		frame.setBackground(Color.red);
+		//frame.setBackground(Color.red);
 		frame.setSize(SCREEN_SIZE_X, SCREEN_SIZE_Y);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -34,9 +40,13 @@ public class Renderer extends JFrame {
 			System.out.println("V2: " + currentTriangle.v2.x + " " + currentTriangle.v2.y + " " + currentTriangle.v2.z);
 			System.out.println("V3: " + currentTriangle.v3.x + " " + currentTriangle.v3.y + " " + currentTriangle.v3.z);
 		}
+		
+		addKeyListener(keyboard);
+		frame.addKeyListener(keyboard);
 	}
 	
 	public void refresh() {
+		//panel.repaint();
 		g.repaint();
 	}
 	
@@ -44,12 +54,14 @@ public class Renderer extends JFrame {
 		
 	}
 	
-	class DrawGraphics extends Canvas {
-		private static final long serialVersionUID = -963524664888441777L;
+	class DrawGraphics extends JPanel {
 		
-		public void paint(Graphics g) {
+		
+		private static final long serialVersionUID = -963524664888441777L;
+		public void paintComponent(Graphics g) {
 			//camera.directionFacing.rotate(0, 1, 0, 1);
 			System.out.println("Camera X Direction Facing: " + camera.directionFacing.xi);
+			System.out.println("Camera X: " + camera.x + " Y: " + camera.y + " Z: " + camera.z);
 			doQuickSort(trianglesToRender);
 			
 			for (int i = trianglesToRender.size()-1; i >= 0; i--) {
@@ -58,22 +70,22 @@ public class Renderer extends JFrame {
 				int[] yPoints = {getScreenYPosition(trianglesToRender.get(i).v1), getScreenYPosition(trianglesToRender.get(i).v2), getScreenYPosition(trianglesToRender.get(i).v3)};
 				//g.setColor(Color.black);
 				//g.fillPolygon(xPoints, yPoints, 3);
-				System.out.println("XPoint 1: " + xPoints[0] + " XPoint 2: " + xPoints[1] + " XPoint 3: " + xPoints[2]);
+				//System.out.println("XPoint 1: " + xPoints[0] + " XPoint 2: " + xPoints[1] + " XPoint 3: " + xPoints[2]);
 				//System.out.println("YPoint 1: " + yPoints[0] + " YPoint 2: " + yPoints[1] + " YPoint 3: " + yPoints[2]);
 				g.setColor(Color.red);
 				g.drawPolygon(xPoints, yPoints, 3);
 			}
 		}
 		private int getScreenXPosition(Vertex v) {
-			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - (((1 - (camera.directionFacing.xi * 1.000))-1)*Math.PI*2);
-			System.out.println("vXTheta: " + vXTheta);
+			double vXTheta = Math.atan((v.y-camera.y)/(v.x-camera.x)) - Math.asin(camera.directionFacing.xi)*2;
+			//System.out.println("vXTheta: " + vXTheta);
 			return (int) ((vXTheta*(SCREEN_SIZE_X / FOVRADIANS))/2+(SCREEN_SIZE_X/2));
 		}
 		
 		private int getScreenYPosition(Vertex v) {
 			double relativeX = v.x-camera.x;
 			double relativeY = v.y-camera.y;
-			double vYTheta = Math.atan((v.z-camera.z)/Math.sqrt(Math.abs(relativeX*relativeX)+Math.abs(relativeY*relativeY))) - (camera.directionFacing.yj*Math.PI*2);
+			double vYTheta = Math.atan((v.z-camera.z)/Math.sqrt(Math.abs(relativeX*relativeX)+Math.abs(relativeY*relativeY))) - Math.asin(camera.directionFacing.yj)*2;
 			return (int) ((vYTheta*(SCREEN_SIZE_Y / (FOVRADIANS * (9.000/16.000))))/2+(SCREEN_SIZE_Y/2));
 		}
 	}
