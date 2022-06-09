@@ -1,7 +1,7 @@
 package world;
 
 import dependencies.KeyboardInput;
-import dependencies.Quaternion;
+import dependencies.PureQuaternion;
 
 public class Camera {
 	private final long minimumDeltaTime = 1000 / UserPreferences.FRAMES_PER_SECOND;
@@ -10,16 +10,16 @@ public class Camera {
 	public double y;
 	public double z;
 	
-	public Quaternion directionFacing;
+	public PureQuaternion directionFacing;
 	
-	public Camera(Quaternion facing, double x, double y, double z) {
+	public Camera(PureQuaternion facing, double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		directionFacing = facing;
 	}
 	public Camera(double x, double y, double z) {
-		this(new Quaternion(0, 1, 0, 0), x, y, z);
+		this(new PureQuaternion(0, 1, 0, 0), x, y, z);
 	}
 	public Camera() {
 		this(0, 0, 0);
@@ -34,15 +34,15 @@ public class Camera {
 		double deltaTimeCoefficient = (deltaTime/minimumDeltaTime);
 		//W
 		if (keyboard.keyDown(87)) {
-			y += 0.1 * directionFacing.zk * deltaTimeCoefficient;
-			x += 0.1 * directionFacing.yj * deltaTimeCoefficient;
-			z += 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			y += 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			x -= 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			z += 0.1 * directionFacing.yj * deltaTimeCoefficient;
 		}
 		//S
 		if (keyboard.keyDown(83)) {
-			y -= 0.1 * directionFacing.zk * deltaTimeCoefficient;
-			x -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
-			z -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			y -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			x += 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			z -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
 		}
 		//A
 		if (keyboard.keyDown(65)) {

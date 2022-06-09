@@ -70,10 +70,10 @@ public class Renderer extends JFrame {
 				public void paintComponent(Graphics g) {
 					g.setColor(Color.white);
 					g.fillRect(0, 0,  SCREEN_SIZE_X, SCREEN_SIZE_Y);
+					g.setColor(Color.gray);
+					g.drawString(String.format("X: %-3.3f Y: %-3.3f Z: %-3.3f", camera.x, camera.y, camera.z), 10, 10);
+					g.drawString(String.format("S: %-3.3f X: %-3.3f Y: %-3.3f Z: %-3.3f", camera.directionFacing.s, camera.directionFacing.xi, camera.directionFacing.yj, camera.directionFacing.zk), 10, 20);
 					
-					//camera.directionFacing.rotate(0, 1, 0, 1);
-					System.out.println("Direction Facing X:  " + camera.directionFacing.xi + " Y: " + camera.directionFacing.yj + " Z: " + camera.directionFacing.zk);
-					System.out.println("Camera X: " + camera.x + " Y: " + camera.y + " Z: " + camera.z);
 					doQuickSort(trianglesToRender);
 				
 					for (int i = trianglesToRender.size()-1; i >= 0; i--) {
