@@ -15,6 +15,7 @@ public class MTLMaterial {
 		this.name = name;
 	}
 	public Color getBasicColor() {
+		//System.out.println("Color " + name + " Requested!");
 		return new Color(diffuseColor[0], diffuseColor[1], diffuseColor[2]);
 	}
 }

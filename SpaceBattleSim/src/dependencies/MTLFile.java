@@ -39,6 +39,9 @@ public class MTLFile {
 				String green = lines[i].split(" ")[2];
 				String blue = lines[i].split(" ")[3];
 				
+				System.out.println("Kd Found!: " + red + " : " + green + " : " + blue);
+				System.out.println("Writing To: " + materials.get(materialsIndex - 1).name);
+				
 				materials.get(materialsIndex - 1).diffuseColor[0] = parseFloat(red);
 				materials.get(materialsIndex - 1).diffuseColor[1] = parseFloat(green);
 				materials.get(materialsIndex - 1).diffuseColor[2] = parseFloat(blue);

@@ -49,7 +49,9 @@ public class OBJFile {
 				}
 			} else if (lines[i].startsWith("usemtl")) {
 				try {
-					mtlLibrary.findMaterial(lines[i].split(" ")[1]);
+					if (mtlLibrary.findMaterial(lines[i].split(" ")[1]) != null) {
+						materialInUse = mtlLibrary.findMaterial(lines[i].split(" ")[1]);
+					}
 				} catch (Exception e) {
 					System.out.println("No MTL material Found");
 				}

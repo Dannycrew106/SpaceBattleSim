@@ -30,7 +30,6 @@ public class Camera {
 	}
 	
 	public void update(KeyboardInput keyboard, long deltaTime) {
-		System.out.println("Updated Camera");
 		double deltaTimeCoefficient = (deltaTime/minimumDeltaTime);
 		//W
 		if (keyboard.keyDown(87)) {
