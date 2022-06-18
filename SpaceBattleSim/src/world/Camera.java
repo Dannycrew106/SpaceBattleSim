@@ -45,27 +45,29 @@ public class Camera {
 		}
 		//A
 		if (keyboard.keyDown(65)) {
-			y += 0.1 * directionFacing.xi * deltaTimeCoefficient;
-			x += 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			y += 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			x += 0.1 * directionFacing.xi * deltaTimeCoefficient;
 			z += 0.1 * directionFacing.yj * deltaTimeCoefficient;
 		}
 		//D
 		if (keyboard.keyDown(68)) {
-			y -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
-			x -= 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			y -= 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			x -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
 			z -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
 		}
 		//E
 		if (keyboard.keyDown(69)) {
-			y -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
-			x -= 0.1 * directionFacing.zk * deltaTimeCoefficient;
-			z -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
+			//y += 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			//x += 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			//z += 0.1 * directionFacing.yj * deltaTimeCoefficient;
+			z -= 0.1 * Math.sqrt((directionFacing.xi * directionFacing.xi)+(directionFacing.zk*directionFacing.zk)) * deltaTimeCoefficient;
 		}
 		//Q
 		if (keyboard.keyDown(81)) {
-			y -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
-			x -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
-			z -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
+			//y -= 0.1 * directionFacing.xi * deltaTimeCoefficient;
+			//x -= 0.1 * directionFacing.zk * deltaTimeCoefficient;
+			//z -= 0.1 * directionFacing.yj * deltaTimeCoefficient;
+			z += 0.1 * Math.sqrt((directionFacing.xi * directionFacing.xi)+(directionFacing.zk*directionFacing.zk)) * deltaTimeCoefficient;
 		}
 		//UP arrow
 		if (keyboard.keyDown(38)) {

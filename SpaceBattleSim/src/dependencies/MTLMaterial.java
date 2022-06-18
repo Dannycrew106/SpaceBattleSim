@@ -14,6 +14,9 @@ public class MTLMaterial {
 	public MTLMaterial(String name) {
 		this.name = name;
 	}
+	public void setDiffuse(int index, float value) {
+		diffuseColor[index] = value;
+	}
 	public Color getBasicColor() {
 		//System.out.println("Color " + name + " Requested!");
 		return new Color(diffuseColor[0], diffuseColor[1], diffuseColor[2]);

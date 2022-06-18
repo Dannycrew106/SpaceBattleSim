@@ -16,6 +16,7 @@ public class MTLFile {
 		System.out.println(fileString);
 		scanner.close();
 		String[] lines = fileString.split("\r\n|\r|\n");
+		System.out.println("Finished Reading MTLFile");
 		
 		int materialsIndex = 0;
 		
@@ -23,6 +24,7 @@ public class MTLFile {
 			if (lines[i].startsWith("#")) {
 				continue;
 			} else if (lines[i].startsWith("newmtl")) {
+				System.out.println("New MTL: " + lines[i].split(" ")[1]);
 				String mtlName = lines[i].split(" ")[1];
 				materials.add(materialsIndex, new MTLMaterial(mtlName));
 				materialsIndex++;
@@ -42,9 +44,9 @@ public class MTLFile {
 				System.out.println("Kd Found!: " + red + " : " + green + " : " + blue);
 				System.out.println("Writing To: " + materials.get(materialsIndex - 1).name);
 				
-				materials.get(materialsIndex - 1).diffuseColor[0] = parseFloat(red);
-				materials.get(materialsIndex - 1).diffuseColor[1] = parseFloat(green);
-				materials.get(materialsIndex - 1).diffuseColor[2] = parseFloat(blue);
+				materials.get(materialsIndex - 1).setDiffuse(0, parseFloat(red));
+				materials.get(materialsIndex - 1).setDiffuse(1, parseFloat(green));
+				materials.get(materialsIndex - 1).setDiffuse(2, parseFloat(blue));
 			} else if (lines[i].startsWith("Ks")) {
 				String red = lines[i].split(" ")[1];
 				String green = lines[i].split(" ")[2];
@@ -64,8 +66,10 @@ public class MTLFile {
 		System.out.println("MTLFile length is: " + lines.length);
 	}
 	public MTLMaterial findMaterial(String materialName) {
+		System.out.println("Finding Material: " + materialName);
 		for (int i = 0; i < materials.size(); i++) {
-			if (materials.get(i).name == materialName) {
+			System.out.println("Material Is: " + materials.get(i).name);
+			if (materials.get(i).name.equals(materialName)) {
 				return materials.get(i);
 			}
 		}

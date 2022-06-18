@@ -48,6 +48,7 @@ public class OBJFile {
 					System.out.println("No MTL Library Exists");
 				}
 			} else if (lines[i].startsWith("usemtl")) {
+				System.out.println("Using MTL: " + mtlLibrary.findMaterial(lines[i].split(" ")[1]));
 				try {
 					if (mtlLibrary.findMaterial(lines[i].split(" ")[1]) != null) {
 						materialInUse = mtlLibrary.findMaterial(lines[i].split(" ")[1]);

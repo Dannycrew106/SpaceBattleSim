@@ -25,9 +25,4 @@ public class Triangle{
 		z = (v1.z+v2.z+v3.z)/3;
 	}
 	
-	public int compareTo(Triangle o) {
-		
-		return 0;
-	}
-	
 }
